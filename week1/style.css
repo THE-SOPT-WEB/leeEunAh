@@ -18,7 +18,7 @@ button {
   outline: 0;
   padding: 5px 10px;
   color: white;
-  background-color: #546de5;
+  background-color: #30336b;
 }
 
 header {
@@ -55,7 +55,7 @@ aside.sidebar h3 {
 aside.sidebar h3.choice {
   margin-bottom: 5px;
   color: white;
-  background-color: #546de5;
+  background-color: #30336b;
 }
 
 aside.sidebar h3.not__choice {
@@ -97,7 +97,8 @@ section.bread {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 3%;
+  padding: 0px 10px;
 }
 
 article.bread__card {
@@ -109,7 +110,7 @@ article.bread__card {
   border-radius: 15px;
   gap: 10px;
   padding: 0px 10px;
-  box-shadow: 3px 4px 5px 3px rgba(0, 0, 0, 0.15);
+  box-shadow: 3px 4px 5px 3px rgba(0, 0, 0, 0.25);
 }
 
 article.bread__card:hover {
@@ -125,4 +126,37 @@ article.bread__card img.bread__image {
   width: 35%;
   height: 80%;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 1200px) {
+  aside.sidebar {
+    width: 65px;
+    padding: 20px;
+    position: absolute;
+    top: -7.5px;
+    left: 0;
+    background-color: transparent;
+  }
+
+  aside.sidebar h2 {
+    display: none;
+  }
+
+  aside.sidebar h3 {
+    font-size: 12px;
+  }
+
+  aside.sidebar h3.choice {
+    margin-bottom: 3px;
+  }
+
+  section.bread {
+    padding: 0px 10px 0px 0px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  article.bread__card {
+    width: 80%;
+  }
 }
