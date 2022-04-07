@@ -1,1 +1,119 @@
 @import 'reset.css';
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+hr {
+  border-top: 2px solid white;
+}
+
+button {
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 0;
+  outline: 0;
+  padding: 5px 10px;
+  color: white;
+  background-color: #546de5;
+}
+
+header {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0px;
+  color: white;
+  background-color: #546de5;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  padding: 10px 10px;
+}
+
+aside.sidebar {
+  flex: 0.4;
+  height: 100px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #ffeaa7;
+}
+
+aside.sidebar h2 {
+  margin-bottom: 15px;
+}
+
+aside.sidebar h3 {
+  padding: 5px 4px;
+  border-radius: 5px;
+}
+
+aside.sidebar h3.choice {
+  margin-bottom: 5px;
+  color: white;
+  background-color: #546de5;
+}
+
+aside.sidebar h3.not__choice {
+  background-color: white;
+}
+
+aside.cart {
+  flex: 1;
+  position: sticky;
+  height: 250px;
+  border-radius: 15px;
+  padding: 15px;
+  top: 10px;
+  background-color: #ffeaa7;
+}
+
+aside.cart section.cart__breads {
+  height: 70px;
+}
+
+aside.cart section.cart__total__price {
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+aside.cart section.cart__buttons {
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+section.bread {
+  flex: 3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+article.bread__card {
+  width: 45%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  gap: 10px;
+  padding: 0px 10px;
+  box-shadow: 3px 4px 5px 3px rgba(0, 0, 0, 0.15);
+}
+
+article.bread__card img.bread__image {
+  width: 35%;
+  height: 80%;
+  border-radius: 50%;
+}
