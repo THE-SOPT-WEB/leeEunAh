@@ -112,6 +112,15 @@ article.bread__card {
   box-shadow: 3px 4px 5px 3px rgba(0, 0, 0, 0.15);
 }
 
+article.bread__card:hover {
+  background-color: #ffbe76;
+  cursor: pointer;
+}
+
+article.bread__card:hover h3 {
+  color: white;
+}
+
 article.bread__card img.bread__image {
   width: 35%;
   height: 80%;
