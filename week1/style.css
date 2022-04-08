@@ -9,6 +9,7 @@ hr {
 }
 
 button {
+  width: 75px;
   border-radius: 10px;
   font-size: 12px;
   font-weight: bold;
