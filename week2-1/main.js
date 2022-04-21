@@ -38,7 +38,7 @@ function showModal(sentence, keep) {
   modalBody.innerHTML = sentence;
   modal.classList.remove('hide');
 
-  noShowEvent(modal);
+  noShowModalEvent(modal);
 
   if (keep) return;
 
@@ -47,7 +47,7 @@ function showModal(sentence, keep) {
   }, 1000);
 }
 
-function noShowEvent(modal) {
+function noShowModalEvent(modal) {
   modal.addEventListener('click', function (e) {
     modal.classList.add('hide');
   });
