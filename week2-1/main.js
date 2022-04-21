@@ -32,21 +32,33 @@ const quizList = [
 ];
 
 function showModal(sentence, keep) {
-  const modalClassList = $('.modal').classList;
+  const modal = $('.modal');
   const modalBody = $('p.modal__body');
+
   modalBody.innerHTML = sentence;
-  modalClassList.remove('hide');
+  modal.classList.remove('hide');
+
+  noShowEvent(modal);
 
   if (keep) return;
 
   setTimeout(function () {
-    modalClassList.add('hide');
+    modal.classList.add('hide');
   }, 1000);
 }
 
-function getNextLevel() {
+function noShowEvent(modal) {
+  modal.addEventListener('click', function (e) {
+    modal.classList.add('hide');
+  });
+}
+
+function goNextLevel(score, image) {
   currentStep++;
-  const score = $('.scoreBoard__score');
+  const scoreBoard = $('.scoreBoard');
+  scoreBoard.animate([{ transform: 'scaleY(2)' }, { transform: 'scaleY(1)' }], {
+    duration: 2000,
+  });
   score.innerHTML = +score.innerHTML + 1;
 
   if (currentStep === quizList.length) {
@@ -54,17 +66,31 @@ function getNextLevel() {
     return;
   }
 
-  showImg();
+  showImg(image);
 }
 
-function checkAnswer() {
-  const clickedLi = $('ul.answer__list');
-  clickedLi.addEventListener('click', function (e) {
+function showImg(image) {
+  showModal('이미지 로딩 중 입니다 :)', true);
+  image.src = quizList[currentStep].src;
+  image.addEventListener('load', function (e) {
+    $('.modal').classList.add('hide');
+  });
+}
+
+function initGame({ score, image }) {
+  currentStep = 0;
+  score.innerText = 0;
+  showImg(image);
+}
+
+function attachAnswerEvent({ score, answer, image }) {
+  answer.addEventListener('click', function (e) {
     if (e.target instanceof HTMLElement) {
       const clickedAnswer = e.target.innerText;
       const realAnswer = quizList[currentStep].answer;
+
       if (clickedAnswer === realAnswer) {
-        getNextLevel();
+        goNextLevel(score, image);
       } else {
         showModal('틀렸습니다!');
       }
@@ -72,27 +98,24 @@ function checkAnswer() {
   });
 }
 
-function showImg() {
-  const img = $('.imageBoard > img');
-  img.src = quizList[currentStep].src;
-}
-
-function initGame() {
-  const score = $('.scoreBoard__score');
-  score.innerHTML = 0;
-  currentStep = 0;
-}
-
-function restartGame() {
+function restartGame(gameInfo) {
   const button = $('button.buttonList__shuffle');
   button.addEventListener('click', function (e) {
-    initGame();
+    initGame(gameInfo);
     location.href = '/';
   });
 }
 
+function gameManager(gameInfo) {
+  initGame(gameInfo);
+  attachAnswerEvent(gameInfo);
+  restartGame(gameInfo);
+}
+
 window.onload = function () {
-  showImg();
-  checkAnswer();
-  restartGame();
+  gameManager({
+    score: $('.scoreBoard__score'),
+    answer: $('ul.answer__list'),
+    image: $('.imageBoard > img'),
+  });
 };
