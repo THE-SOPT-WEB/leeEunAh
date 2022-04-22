@@ -8,18 +8,6 @@ hr {
   border-top: 2px solid white;
 }
 
-button {
-  width: 75px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: bold;
-  border: 0;
-  outline: 0;
-  padding: 5px 10px;
-  color: white;
-  background-color: #30336b;
-}
-
 header {
   width: 100%;
   text-align: center;
@@ -53,27 +41,24 @@ main {
 }
 
 .side-bar__item--choice {
-  margin-bottom: 5px;
-  color: white;
   background-color: #30336b;
+  color: white;
+  margin-bottom: 5px;
 }
 
 .cart {
   flex: 1;
+}
+
+.cart__info {
   position: sticky;
-  height: 250px;
+  top: 10px;
   border-radius: 15px;
   padding: 15px;
-  top: 10px;
   background-color: #ffeaa7;
 }
 
-.cart__breads {
-  height: 70px;
-}
-
-.cart__total__price {
-  height: 110px;
+.cart__total-price {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -81,11 +66,56 @@ main {
 }
 
 .cart__buttons {
-  height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+
+.cart__button,
+.modal__button {
+  width: 75px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 0;
+  outline: 0;
+  padding: 5px 10px;
+  color: white;
+  background-color: #30336b;
+}
+
+.cart__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 5px;
+}
+
+.cart__item-name {
+  flex: 1.5;
+}
+
+.cart__item-input {
+  flex: 1;
+  width: 10px;
+}
+
+.cart__item-price {
+  flex: 1;
+}
+
+.cart__item-button {
+  flex: 0.2;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 0;
+  outline: 0;
+  padding: 5px 10px;
+  color: white;
+  background-color: #30336b;
 }
 
 .bread {
@@ -118,10 +148,45 @@ main {
   color: white;
 }
 
-.bread__card img.bread__image {
+.bread__image {
   width: 35%;
   height: 80%;
   border-radius: 50%;
+}
+
+.modal.hide {
+  display: none;
+}
+
+.modal {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__content {
+  width: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 18px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.modal__button:hover {
+  color: #30336b;
+  background-color: #ffeaa7;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1200px) {
