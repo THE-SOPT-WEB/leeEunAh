@@ -51,6 +51,7 @@ main {
 }
 
 .cart__info {
+  min-width: 290px;
   position: sticky;
   top: 10px;
   border-radius: 15px;
