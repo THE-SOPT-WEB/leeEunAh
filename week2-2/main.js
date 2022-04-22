@@ -10,6 +10,18 @@ function attachCardClickEvent() {
   );
 }
 
+function attachCancelButtonClickEvent() {
+  const cancelButton = $('.cart__button--cancel');
+  cancelButton.addEventListener('click', function (e) {
+    const cartList = $('.cart__list');
+    while (cartList.hasChildNodes()) {
+      cartList.removeChild(cartList.firstChild);
+    }
+    const totalPrice = $('.cart__total-price > h3');
+    totalPrice.innerHTML = '0원';
+  });
+}
+
 function removeListItem(e) {
   const clickedList = e.currentTarget.parentNode;
   clickedList.remove();
@@ -86,4 +98,5 @@ function addCartListItem(e) {
 
 window.onload = function () {
   attachCardClickEvent();
+  attachCancelButtonClickEvent();
 };
