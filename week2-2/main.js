@@ -22,6 +22,27 @@ function attachCancelButtonClickEvent() {
   });
 }
 
+function attachOrderButtonClickEvent() {
+  const orderButton = $('.cart__button--order');
+  const cartItemList = document.querySelector('.cart__list');
+  orderButton.addEventListener('click', function (e) {
+    if (!cartItemList.hasChildNodes()) return;
+
+    const modal = $('.modal');
+    modal.classList.remove('hide');
+
+    const yesButton = $('.modal__button--yes');
+    yesButton.addEventListener('click', function (e) {
+      location.href = 'complete.html';
+    });
+
+    const noButton = $('.modal__button--no');
+    noButton.addEventListener('click', function (e) {
+      modal.classList.add('hide');
+    });
+  });
+}
+
 function removeListItem(e) {
   const clickedList = e.currentTarget.parentNode;
   clickedList.remove();
@@ -99,4 +120,5 @@ function addCartListItem(e) {
 window.onload = function () {
   attachCardClickEvent();
   attachCancelButtonClickEvent();
+  attachOrderButtonClickEvent();
 };
