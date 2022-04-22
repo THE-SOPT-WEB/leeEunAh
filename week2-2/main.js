@@ -58,14 +58,12 @@ function makeCartItem(breadName, breadPrice) {
   });
 
   const cartItemInput = cartItem.querySelector('.cart__item-input');
-  cartItemInput.addEventListener('change', function (e) {
-    getCartTotalPrice();
-  });
+  cartItemInput.addEventListener('change', getCartTotalPrice);
 
   return cartItem;
 }
 
-function getCartTotalPrice() {
+function getCartTotalPrice(e) {
   const cartList = $$('.cart__item');
   let totalPrice = 0;
   cartList.forEach(
