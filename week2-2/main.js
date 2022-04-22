@@ -1,5 +1,5 @@
 const $ = (selector) => document.querySelector(selector);
-const cartItemList = [];
+let cartItemList = [];
 
 function attachCardClickEvent() {
   const breadCards = document.querySelectorAll('.bread__card');
@@ -19,6 +19,7 @@ function attachCancelButtonClickEvent() {
     }
     const totalPrice = $('.cart__total-price > h3');
     totalPrice.innerHTML = '0원';
+    cartItemList = [];
   });
 }
 
@@ -46,6 +47,8 @@ function attachOrderButtonClickEvent() {
 function removeListItem(e) {
   const clickedList = e.currentTarget.parentNode;
   clickedList.remove();
+  const removeItem = clickedList.querySelector('.cart__item-name').innerHTML;
+  cartItemList = cartItemList.filter((bread) => bread !== removeItem);
 }
 
 function checkItemInCart(breadName) {
@@ -70,7 +73,7 @@ function makeCartListItem(breadName, breadPrice) {
   cartItem.id = `${breadName}`;
 
   cartItem.innerHTML = `<h4 class="cart__item-name">${breadName}</h4>
-    <input class="cart__item-input" value="1" type="number" />
+    <input class="cart__item-input" value="1" min="1" type="number" />
     <h4 class="cart__item-price">${breadPrice}</h4>
     <button class="cart__item-button">X</button>`;
 
