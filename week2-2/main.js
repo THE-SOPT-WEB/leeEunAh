@@ -1,52 +1,26 @@
 const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => document.querySelectorAll(selector);
 let cartItemList = [];
 
 function attachCardClickEvent() {
-  const breadCards = document.querySelectorAll('.bread__card');
-  breadCards.forEach((breadCard) =>
-    breadCard.addEventListener('click', function (e) {
-      addCartListItem(e);
-    })
-  );
+  const breadCards = $$('.bread__card');
+  breadCards.forEach((breadCard) => breadCard.addEventListener('click', addCartListItem));
 }
 
-function attachCancelButtonClickEvent() {
+function attachCancelClickEvent() {
   const cancelButton = $('.cart__button--cancel');
-  cancelButton.addEventListener('click', function (e) {
-    const cartList = $('.cart__list');
-    while (cartList.hasChildNodes()) {
-      cartList.removeChild(cartList.firstChild);
-    }
-    const totalPrice = $('.cart__total-price > h3');
-    totalPrice.innerHTML = '0원';
-    cartItemList = [];
-  });
+  cancelButton.addEventListener('click', resetCart);
 }
 
-function attachOrderButtonClickEvent() {
+function attachOrderClickEvent() {
   const orderButton = $('.cart__button--order');
-  const cartItemList = document.querySelector('.cart__list');
-  orderButton.addEventListener('click', function (e) {
-    if (!cartItemList.hasChildNodes()) return;
-
-    const modal = $('.modal');
-    modal.classList.remove('hide');
-
-    const yesButton = $('.modal__button--yes');
-    yesButton.addEventListener('click', function (e) {
-      location.href = 'complete.html';
-    });
-
-    const noButton = $('.modal__button--no');
-    noButton.addEventListener('click', function (e) {
-      modal.classList.add('hide');
-    });
-  });
+  orderButton.addEventListener('click', clickOrderButton);
 }
 
 function removeListItem(e) {
   const clickedList = e.currentTarget.parentNode;
   clickedList.remove();
+
   const removeItem = clickedList.querySelector('.cart__item-name').innerHTML;
   cartItemList = cartItemList.filter((bread) => bread !== removeItem);
 }
@@ -55,7 +29,7 @@ function checkItemInCart(breadName) {
   return cartItemList.includes(breadName);
 }
 
-function plusAlreadyItemNum(breadName) {
+function plusItemNum(breadName) {
   const cartList = $('.cart__list');
   const alreadyCartItem = cartList.querySelector(`#${breadName}`);
   const inputValue = +alreadyCartItem.querySelector('.cart__item-input').value + 1;
@@ -67,7 +41,7 @@ function calculatePriceToNumber(price) {
   return +removedComma;
 }
 
-function makeCartListItem(breadName, breadPrice) {
+function makeCartItem(breadName, breadPrice) {
   const cartItem = document.createElement('li');
   cartItem.className = 'cart__item';
   cartItem.id = `${breadName}`;
@@ -80,25 +54,53 @@ function makeCartListItem(breadName, breadPrice) {
   const cartItemButton = cartItem.querySelector('.cart__item-button');
   cartItemButton.addEventListener('click', function (e) {
     removeListItem(e);
-    changeCartTotalPrice();
+    getCartTotalPrice();
   });
 
   const cartItemInput = cartItem.querySelector('.cart__item-input');
   cartItemInput.addEventListener('change', function (e) {
-    changeCartTotalPrice();
+    getCartTotalPrice();
   });
 
   return cartItem;
 }
 
-function changeCartTotalPrice() {
-  const cartList = document.querySelectorAll('.cart__item');
+function getCartTotalPrice() {
+  const cartList = $$('.cart__item');
   let totalPrice = 0;
   cartList.forEach(
     (item) => (totalPrice += +item.querySelector('.cart__item-input').value * calculatePriceToNumber(item.querySelector('.cart__item-price').innerHTML))
   );
-  const cartTotalPrice = $('.cart__total-price > h3');
-  cartTotalPrice.innerHTML = `${totalPrice.toLocaleString()}원`;
+  $('.cart__total-price > h3').innerHTML = `${totalPrice.toLocaleString()}원`;
+}
+
+function clickOrderButton(e) {
+  const cartItemList = $('.cart__list');
+
+  if (!cartItemList.hasChildNodes()) return;
+
+  const modal = $('.modal');
+  modal.classList.remove('hide');
+
+  const yesButton = $('.modal__button--yes');
+  yesButton.addEventListener('click', function (e) {
+    location.href = 'complete.html';
+  });
+
+  const noButton = $('.modal__button--no');
+  noButton.addEventListener('click', function (e) {
+    modal.classList.add('hide');
+  });
+}
+
+function resetCart(e) {
+  const cartList = $('.cart__list');
+  while (cartList.hasChildNodes()) {
+    cartList.removeChild(cartList.firstChild);
+  }
+  const totalPrice = $('.cart__total-price > h3');
+  totalPrice.innerHTML = '0원';
+  cartItemList = [];
 }
 
 function addCartListItem(e) {
@@ -107,21 +109,20 @@ function addCartListItem(e) {
   const breadPrice = breadCard.querySelector('.bread__price').innerHTML;
 
   if (checkItemInCart(breadName)) {
-    plusAlreadyItemNum(breadName);
-    changeCartTotalPrice();
+    plusItemNum(breadName);
+    getCartTotalPrice();
     return;
   } else {
     cartItemList.push(breadName);
   }
 
-  const cartItem = makeCartListItem(breadName, breadPrice);
-  const cartList = $('.cart__list');
-  cartList.appendChild(cartItem);
-  changeCartTotalPrice();
+  const cartItem = makeCartItem(breadName, breadPrice);
+  $('.cart__list').appendChild(cartItem);
+  getCartTotalPrice();
 }
 
 window.onload = function () {
   attachCardClickEvent();
-  attachCancelButtonClickEvent();
-  attachOrderButtonClickEvent();
+  attachCancelClickEvent();
+  attachOrderClickEvent();
 };
