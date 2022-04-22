@@ -19,7 +19,7 @@ function checkItemInCart(breadName) {
   return cartItemList.includes(breadName);
 }
 
-function plusAlreayItemNum(breadName) {
+function plusAlreadyItemNum(breadName) {
   const cartList = $('.cart__list');
   const alreadyCartItem = cartList.querySelector(`#${breadName}`);
   const inputValue = +alreadyCartItem.querySelector('.cart__item-input').value + 1;
@@ -71,7 +71,7 @@ function addCartListItem(e) {
   const breadPrice = breadCard.querySelector('.bread__price').innerHTML;
 
   if (checkItemInCart(breadName)) {
-    plusAlreayItemNum(breadName);
+    plusAlreadyItemNum(breadName);
     changeCartTotalPrice();
     return;
   } else {
