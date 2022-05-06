@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/leeEunAh/static/css/main.e6c13ad2.css",
+    "main.js": "/leeEunAh/static/js/main.30b8ba61.js",
+    "static/js/787.77d4b1d9.chunk.js": "/leeEunAh/static/js/787.77d4b1d9.chunk.js",
+    "static/media/crown.png": "/leeEunAh/static/media/crown.572ab80fecd936a57a1b.png",
+    "static/media/versus.png": "/leeEunAh/static/media/versus.d783acac13668c55f36a.png",
+    "static/media/captain.png": "/leeEunAh/static/media/captain.018abad0cf2036b93c58.png",
+    "static/media/spiderman.png": "/leeEunAh/static/media/spiderman.d570c0f5bc75236f36ae.png",
+    "index.html": "/leeEunAh/index.html",
+    "main.e6c13ad2.css.map": "/leeEunAh/static/css/main.e6c13ad2.css.map",
+    "main.30b8ba61.js.map": "/leeEunAh/static/js/main.30b8ba61.js.map",
+    "787.77d4b1d9.chunk.js.map": "/leeEunAh/static/js/787.77d4b1d9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.30b8ba61.js"
+  ]
+}
