@@ -3,8 +3,8 @@ const $$ = (selector) => document.querySelectorAll(selector);
 let cartItemList = [];
 
 function attachCardClickEvent() {
-  const breadCards = $$('.bread__card');
-  breadCards.forEach((breadCard) => breadCard.addEventListener('click', addCartListItem));
+  const bread = $('.bread');
+  bread.addEventListener('click', addCartListItem);
 }
 
 function attachCancelClickEvent() {
@@ -17,16 +17,12 @@ function attachOrderClickEvent() {
   orderButton.addEventListener('click', clickOrderButton);
 }
 
-function removeListItem(e) {
+function clickedItem(e) {
   const clickedList = e.currentTarget.parentNode;
   clickedList.remove();
 
   const removeItem = clickedList.querySelector('.cart__item-name').innerHTML;
   cartItemList = cartItemList.filter((bread) => bread !== removeItem);
-}
-
-function checkItemInCart(breadName) {
-  return cartItemList.includes(breadName);
 }
 
 function plusItemNum(breadName) {
@@ -53,17 +49,17 @@ function makeCartItem(breadName, breadPrice) {
 
   const cartItemButton = cartItem.querySelector('.cart__item-button');
   cartItemButton.addEventListener('click', function (e) {
-    removeListItem(e);
-    getCartTotalPrice();
+    clickedItem(e);
+    calculateCartTotalPrice();
   });
 
   const cartItemInput = cartItem.querySelector('.cart__item-input');
-  cartItemInput.addEventListener('change', getCartTotalPrice);
+  cartItemInput.addEventListener('change', calculateCartTotalPrice);
 
   return cartItem;
 }
 
-function getCartTotalPrice(e) {
+function calculateCartTotalPrice(e) {
   const cartList = $$('.cart__item');
   let totalPrice = 0;
   cartList.forEach(
@@ -102,21 +98,22 @@ function resetCart(e) {
 }
 
 function addCartListItem(e) {
-  const breadCard = e.currentTarget;
-  const breadName = breadCard.querySelector('.bread__name').innerHTML;
-  const breadPrice = breadCard.querySelector('.bread__price').innerHTML;
+  let el = e.target;
+  if (el.classList.contains('bread')) return;
+  while (!el.classList.contains('bread__card')) {
+    el = el.parentNode;
+  }
+  const breadName = el.querySelector('.bread__name').innerHTML;
+  const breadPrice = el.querySelector('.bread__price').innerHTML;
 
-  if (checkItemInCart(breadName)) {
+  if (cartItemList.includes(breadName)) {
     plusItemNum(breadName);
-    getCartTotalPrice();
-    return;
   } else {
     cartItemList.push(breadName);
+    const cartItem = makeCartItem(breadName, breadPrice);
+    $('.cart__list').appendChild(cartItem);
   }
-
-  const cartItem = makeCartItem(breadName, breadPrice);
-  $('.cart__list').appendChild(cartItem);
-  getCartTotalPrice();
+  calculateCartTotalPrice();
 }
 
 window.onload = function () {
