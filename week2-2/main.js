@@ -103,6 +103,12 @@ function addCartListItem(e) {
   while (!el.classList.contains('bread__card')) {
     el = el.parentNode;
   }
+
+  $('.cart').classList.add('shake');
+  setTimeout(function () {
+    $('.cart').classList.remove('shake');
+  }, 1000);
+
   const breadName = el.querySelector('.bread__name').innerHTML;
   const breadPrice = el.querySelector('.bread__price').innerHTML;
 
