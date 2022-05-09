@@ -31,26 +31,21 @@ const quizList = [
   },
 ];
 
-function showModal(sentence, keep) {
+function showModal(sentence, shouldKeep) {
   const modal = $('.modal');
   const modalBody = $('p.modal__body');
 
   modalBody.innerHTML = sentence;
   modal.classList.remove('hide');
 
-  noShowModalEvent(modal);
-
-  if (keep) return;
-
-  setTimeout(function () {
-    modal.classList.add('hide');
-  }, 1000);
-}
-
-function noShowModalEvent(modal) {
-  modal.addEventListener('click', function (e) {
-    modal.classList.add('hide');
-  });
+  if (!shouldKeep) {
+    modal.addEventListener('click', function (e) {
+      modal.classList.add('hide');
+    });
+    setTimeout(function () {
+      modal.classList.add('hide');
+    }, 1000);
+  }
 }
 
 function goNextLevel(score, image) {
@@ -85,7 +80,7 @@ function initGame({ score, image }) {
 
 function attachAnswerEvent({ score, answer, image }) {
   answer.addEventListener('click', function (e) {
-    if (e.target instanceof HTMLElement) {
+    if (e.target instanceof HTMLLIElement) {
       const clickedAnswer = e.target.innerText;
       const realAnswer = quizList[currentStep].answer;
 
