@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import Skeleton from './components/Skeleton';
 
 const SearchWrapper = styled.div`
   display: flex;
@@ -112,6 +113,7 @@ const ShopNumber = styled.div`
   padding: 5px;
   border: 1px solid white;
 `;
+
 const ShopDistance = styled.div`
   font-size: 1.25rem;
   font-weight: bold;
@@ -242,7 +244,9 @@ function Search() {
       </SearchTitle>
       <SearchDetail>
         {loading ? (
-          <>Loading..</>
+          new Array(4).fill(1).map((_, i) => {
+            return <Skeleton key={i} />;
+          })
         ) : result ? (
           result.length > 0 ? (
             result.map((shop) => (
