@@ -8,8 +8,9 @@ const GlobalStyle = createGlobalStyle`
   }
   body,html {
     width : 100%;
-    height: 100vh;
-    background-color: ${({ theme }) => theme.colors.bgColor};
+    display: flex;
+    justify-content: center;
+    background-color: ${({ theme }) => theme.colors.bgColor}; 
   }
 `;
 
