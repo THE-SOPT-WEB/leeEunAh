@@ -7,5 +7,6 @@ export const theme = {
     btnColor: '#fdcb6e',
     phoneColor: '#30336b',
     accentColor: '#fdcb6e',
+    skeletonColor: '#f5f6fa',
   },
 };
