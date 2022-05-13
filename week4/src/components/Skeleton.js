@@ -10,9 +10,7 @@ const loading = keyframes`
   }
 `;
 
-const SearchResult = styled.li`
-  background-color: ${({ theme }) => theme.colors.contentColor};
-  color: ${({ theme }) => theme.colors.textColor};
+const StSearchResult = styled.li`
   width: 95%;
   height: 100px;
   margin-top: 10px;
@@ -20,19 +18,20 @@ const SearchResult = styled.li`
   border: 1px solid white;
   padding: 10px;
   position: relative;
+  color: ${({ theme }) => theme.colors.textColor};
+  background-color: ${({ theme }) => theme.colors.contentColor};
   &:hover {
-    color: ${({ theme }) => theme.colors.accentColor};
     cursor: pointer;
+    color: ${({ theme }) => theme.colors.accentColor};
   }
 `;
 
-const ShopName = styled.div`
-  width: 50%;
-  height: 80%;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.skeletonColor};
+const StSkeleton = styled.div`
   position: relative;
   overflow: hidden;
+  border-radius: 10px;
+  height: 80%;
+  background-color: ${({ theme }) => theme.colors.skeletonColor};
   &::before {
     content: '';
     position: absolute;
@@ -41,30 +40,28 @@ const ShopName = styled.div`
     width: 40px;
     height: 100%;
     background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
-    animation: ${loading} 2s infinite linear;
+    animation: ${loading} 1s infinite linear;
   }
 `;
 
-const ShopAddress = styled.div`
+const StShopName = styled(StSkeleton)`
+  width: 50%;
+`;
+
+const StShopAddress = styled(StSkeleton)`
   width: 45%;
-  height: 80%;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.skeletonColor};
-  position: relative;
-  overflow: hidden;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
-    animation: ${loading} 2s infinite linear;
-  }
 `;
 
-const ShopDetail = styled.div`
+const StShopNumber = styled(StSkeleton)`
+  width: 40%;
+`;
+
+const StShopDistance = styled(StSkeleton)`
+  float: right;
+  width: 10%;
+`;
+
+const StShopDetail = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -72,57 +69,28 @@ const ShopDetail = styled.div`
   border-radius: 10px;
 `;
 
-const ShopNumber = styled.div`
-  width: 40%;
-  height: 80%;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.skeletonColor};
-  position: relative;
-  overflow: hidden;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
-    animation: ${loading} 2s infinite linear;
-  }
-`;
-
-const ShopDistance = styled.div`
-  float: right;
-  width: 10%;
-  height: 80%;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.skeletonColor};
-  position: relative;
-  overflow: hidden;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50px;
-    height: 100%;
-    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
-    animation: ${loading} 2s infinite linear;
-  }
-`;
+function SkeletonItem() {
+  return (
+    <StSearchResult>
+      <StShopDetail>
+        <StShopName />
+        <StShopDistance />
+      </StShopDetail>
+      <StShopDetail>
+        <StShopNumber />
+        <StShopAddress />
+      </StShopDetail>
+    </StSearchResult>
+  );
+}
 
 function Skeleton() {
   return (
-    <SearchResult>
-      <ShopDetail>
-        <ShopName />
-        <ShopDistance />
-      </ShopDetail>
-      <ShopDetail>
-        <ShopNumber />
-        <ShopAddress />
-      </ShopDetail>
-    </SearchResult>
+    <>
+      {new Array(5).fill(1).map((_, i) => {
+        return <SkeletonItem key={i} />;
+      })}
+    </>
   );
 }
 
