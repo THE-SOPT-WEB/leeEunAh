@@ -146,7 +146,7 @@ function Search() {
         Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_API_KEY}`,
       },
       params: {
-        query: location + ' ' + '맥주',
+        query: `${location} 맥주`,
       },
     });
 
